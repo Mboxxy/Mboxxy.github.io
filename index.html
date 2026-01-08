@@ -188,9 +188,67 @@
   <p class="gold">Wassalamu'alaikum Warahmatullahi Wabarakatuh</p>
 </div>
 
+  </section>  <!-- COUNTDOWN -->  <section>
+    <div class="card" data-aos="zoom-in">
+      <h2>Menuju Hari Bahagia</h2>
+      <div id="countdown" style="font-size:20px; letter-spacing:2px; color:#f5d58b;"></div>
+    </div>
+  </section>  <!-- UCAPAN TAMU -->  <section>
+    <div class="card" data-aos="fade-up">
+      <h2>Kirim Ucapan & Doa</h2>
+      <form id="wishForm">
+        <input type="text" id="name" placeholder="Nama" required style="width:100%;padding:10px;border-radius:10px;border:none;margin-bottom:10px;">
+        <textarea id="message" placeholder="Tulis doa & ucapan" required style="width:100%;padding:10px;border-radius:10px;border:none;height:80px;"></textarea>
+        <br><br>
+        <button type="submit" class="btn">Kirim Ucapan</button>
+      </form>
+      <div id="wishes" style="margin-top:20px;text-align:left;max-height:200px;overflow:auto;"></div>
+    </div>
   </section>  <footer>
     © 2026 Undangan Pernikahan Andi & Theresya
-  </footer>  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>  <script>
+  </footer>  <!-- BACKGROUND MUSIC -->  <audio id="bgMusic" autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_9e8c0c8c52.mp3" type="audio/mpeg">
+  </audio>  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>  <script>
+    // ===== ANIMATION INIT =====
     AOS.init({ duration: 1300, once: true });
+
+    // ===== COUNTDOWN TIMER =====
+    const weddingDate = new Date("April 20, 2026 10:00:00").getTime();
+    const countdownEl = document.getElementById("countdown");
+
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      if (distance < 0) {
+        countdownEl.innerHTML = "Hari Bahagia Telah Tiba 💛";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.innerHTML = `${days} Hari : ${hours} Jam : ${minutes} Menit : ${seconds} Detik`;
+    }, 1000);
+
+    // ===== WISH FORM (LOCAL ONLY) =====
+    const form = document.getElementById("wishForm");
+    const wishes = document.getElementById("wishes");
+
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const message = document.getElementById("message").value;
+
+      const div = document.createElement("div");
+      div.style.borderBottom = "1px solid rgba(255,255,255,0.2)";
+      div.style.marginBottom = "10px";
+      div.innerHTML = `<b>${name}</b><br><span style='font-size:14px'>${message}</span>`;
+      wishes.prepend(div);
+
+      form.reset();
+    });({ duration: 1300, once: true });
   </script></body>
 </html>
