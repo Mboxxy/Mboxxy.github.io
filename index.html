@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ucapan Lucu 💖</title>
+
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    height: 100vh;
+    background: url("bg.jpg") no-repeat center center/cover;
+    overflow: hidden;
+  }
+
+  /* overlay biar teks kebaca */
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+  }
+
+  .card {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .box {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(6px);
+    border-radius: 20px;
+    padding: 25px;
+    color: #fff;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  h1 {
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 18px;
+  }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* hati melayang */
+  .heart {
+    position: absolute;
+    bottom: -30px;
+    font-size: 20px;
+    animation: rise 6s linear infinite;
+    opacity: 0.8;
+  }
+
+  @keyframes rise {
+    0% { transform: translateY(0) scale(1); opacity:1; }
+    100% { transform: translateY(-110vh) scale(1.5); opacity:0; }
+  }
+
+  /* puff cloud lucu */
+  .puff {
+    position: absolute;
+    bottom: 20%;
+    left: -60px;
+    font-size: 30px;
+    animation: puffMove 5s linear infinite;
+  }
+
+  @keyframes puffMove {
+    0% { left:-60px; opacity:0; }
+    20% { opacity:1; }
+    100% { left:110%; opacity:0; }
+  }
+</style>
+</head>
+
+<body>
+  <div class="overlay"></div>
+
+  <div class="card">
+    <div class="box">
+      <h1>💖 Hai Gendutku yang Imut 💖</h1>
+      <p>TEMANI AKU MANDI DONGGGSS~<br>biar makin ceria dan penuh cinta 🤭✨</p>
+    </div>
+  </div>
+
+  <!-- puff cloud lucu -->
+  <div class="puff">☁️💨</div>
+
+  <!-- hati random -->
+  <script>
+    function createHeart(){
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "💖";
+      heart.style.left = Math.random()*100 + "vw";
+      heart.style.animationDuration = (4 + Math.random()*3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(()=>heart.remove(),7000);
+    }
+    setInterval(createHeart, 400);
+  </script>
+</body>
+</html>
