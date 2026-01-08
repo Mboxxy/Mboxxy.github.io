@@ -1,54 +1,137 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html><html lang="id">
 <head>
-  <title>Web Pribadi Mboxxy</title>
-  <style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Undangan Pernikahan</title>  <!-- Google Font -->  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">  <!-- AOS Animation -->  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">  <style>
+    * { box-sizing: border-box; }
     body {
-      background-color: black;
-      color: #00ff00;
-      font-family: Arial, sans-serif;
-      text-align: center;
       margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      overflow-x: hidden;
     }
 
-    .container {
-      max-width: 400px;
-      margin: 60px auto;
-      padding: 20px;
+    section {
+      min-height: 100vh;
+      padding: 60px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
 
-    h1 {
+    h1, h2 {
+      font-family: 'Playfair Display', serif;
       margin-bottom: 10px;
     }
 
-    a {
-      display: block;
-      margin: 12px 0;
-      padding: 12px;
-      border: 2px solid #00ff00;
-      color: #00ff00;
+    .cover {
+      background: url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e') center/cover no-repeat;
+      position: relative;
+    }
+
+    .cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+    }
+
+    .cover-content {
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 2s ease;
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 12px 30px;
+      border-radius: 30px;
+      background: #e6c07b;
+      color: #000;
       text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
+      font-weight: 500;
+      transition: 0.3s;
     }
 
-    a:hover {
-      background-color: #00ff00;
-      color: black;
+    .btn:hover { background: #f3d38c; }
+
+    .photo {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #e6c07b;
+      margin-bottom: 20px;
     }
-  </style>
-</head>
-<body>
 
-  <div class="container">
-    <h1>Mboxxy</h1>
-    <p>Temukan saya di media sosial</p>
+    .card {
+      background: rgba(255,255,255,0.08);
+      padding: 30px;
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+      max-width: 400px;
+    }
 
-    <!-- GANTI LINK DI BAWAH INI -->
-    <a href="https://instagram.com/username" target="_blank">Instagram</a>
-    <a href="https://tiktok.com/@username" target="_blank">TikTok</a>
-    <a href="https://wa.me/628xxxxxxxxxx" target="_blank">WhatsApp</a>
-  </div>
+    iframe {
+      border-radius: 15px;
+      width: 100%;
+      height: 250px;
+      border: none;
+    }
 
-</body>
+    footer {
+      padding: 30px;
+      text-align: center;
+      font-size: 14px;
+      background: rgba(0,0,0,0.3);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style></head>
+<body>  <!-- COVER -->  <section class="cover">
+    <div class="cover-content" data-aos="fade-up">
+      <h2>Undangan Pernikahan</h2>
+      <h1>Andi & Siti</h1>
+      <p>Dengan penuh cinta kami mengundang Anda</p>
+      <a href="#acara" class="btn">Buka Undangan</a>
+    </div>
+  </section>  <!-- PASANGAN -->  <section>
+    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e" class="photo" data-aos="zoom-in">
+    <h2 data-aos="fade-up">Andi Kusuma</h2>
+    <p data-aos="fade-up">Putra dari Bpk. Ahmad & Ibu Sari</p><br><br>
+
+<img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1" class="photo" data-aos="zoom-in">
+<h2 data-aos="fade-up">Siti Aminah</h2>
+<p data-aos="fade-up">Putri dari Bpk. Budi & Ibu Lina</p>
+
+  </section>  <!-- ACARA -->  <section id="acara">
+    <div class="card" data-aos="fade-up">
+      <h2>Detail Acara</h2>
+      <p><b>Hari / Tanggal:</b><br>Minggu, 20 April 2026</p>
+      <p><b>Waktu:</b><br>10.00 WIB - Selesai</p>
+      <p><b>Tempat:</b><br>Gedung Serbaguna Bahagia</p>
+    </div>
+  </section>  <!-- MAP -->  <section>
+    <h2 data-aos="fade-up">Lokasi Acara</h2>
+    <div class="card" data-aos="zoom-in">
+      <iframe src="https://www.google.com/maps?q=gedung%20serbaguna&output=embed"></iframe>
+      <br>
+      <a class="btn" href="https://maps.google.com" target="_blank">Buka di Google Maps</a>
+    </div>
+  </section>  <!-- PENUTUP -->  <section>
+    <h2 data-aos="fade-up">Terima Kasih</h2>
+    <p data-aos="fade-up">Merupakan suatu kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
+  </section>  <footer>
+    © 2026 Undangan Online • Dibuat dengan ❤
+  </footer>  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>  <script>
+    AOS.init({ duration: 1200, once: true });
+  </script></body>
 </html>
