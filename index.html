@@ -16,11 +16,10 @@
     overflow: hidden;
   }
 
-  /* overlay biar teks kebaca */
   .overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.35);
+    background: rgba(0,0,0,0.4);
   }
 
   .card {
@@ -35,29 +34,66 @@
   }
 
   .box {
-    background: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.18);
     backdrop-filter: blur(6px);
     border-radius: 20px;
     padding: 25px;
     color: #fff;
     animation: float 4s ease-in-out infinite;
+    width: 100%;
+    max-width: 350px;
   }
 
-  h1 {
-    font-size: 26px;
-    margin-bottom: 10px;
-  }
-
-  p {
-    font-size: 18px;
-  }
+  h1 { font-size: 24px; margin-bottom: 10px; }
+  p { font-size: 17px; }
 
   @keyframes float {
     0%,100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
   }
 
-  /* hati melayang */
+  .btns {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  button {
+    border: none;
+    border-radius: 20px;
+    padding: 10px 18px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  .yes { background: #ff6fae; color: #fff; }
+  .no { background: #ccc; }
+
+  .rating {
+    margin-top: 15px;
+  }
+
+  input[type=range] { width: 100%; }
+
+  #result, #giftText {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  .gift {
+    display: none;
+    font-size: 50px;
+    animation: pop 0.6s ease-out;
+    margin-top: 10px;
+  }
+
+  @keyframes pop {
+    0% { transform: scale(0); }
+    80% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+
   .heart {
     position: absolute;
     bottom: -30px;
@@ -71,7 +107,6 @@
     100% { transform: translateY(-110vh) scale(1.5); opacity:0; }
   }
 
-  /* puff cloud lucu */
   .puff {
     position: absolute;
     bottom: 20%;
@@ -94,25 +129,64 @@
   <div class="card">
     <div class="box">
       <h1>💖 Hai Gendutku yang Imut 💖</h1>
-      <p>TEMANI AKU MANDI DONGGGSS~<br>biar makin ceria dan penuh cinta 🤭✨</p>
+      <p>Temani aku hari ini yaa~ 🤭✨</p>
+
+      <div class="btns">
+        <button class="yes" onclick="jawab('mau')">MAU 😳</button>
+        <button class="no" onclick="jawab('nggak')">NGGAK 😝</button>
+      </div>
+
+      <div class="rating">
+        <p>Mau berapa persen? 😆</p>
+        <input type="range" min="0" max="100" value="50" id="rate" oninput="updateRate()">
+        <div id="rateText">50%</div>
+      </div>
+
+      <div id="result"></div>
+
+      <div class="gift" id="gift">🎁</div>
+      <div id="giftText"></div>
     </div>
   </div>
 
-  <!-- puff cloud lucu -->
   <div class="puff">☁️💨</div>
 
-  <!-- hati random -->
-  <script>
-    function createHeart(){
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerText = "💖";
-      heart.style.left = Math.random()*100 + "vw";
-      heart.style.animationDuration = (4 + Math.random()*3) + "s";
-      document.body.appendChild(heart);
-      setTimeout(()=>heart.remove(),7000);
+<script>
+  function jawab(pilih){
+    const res = document.getElementById("result");
+    if(pilih === "mau"){
+      res.innerHTML = "YEAY 😍 Kamu baik banget sih 💖";
+    } else {
+      res.innerHTML = "Yahh 😭 tapi aku tetap sayang 😝";
     }
-    setInterval(createHeart, 400);
-  </script>
+  }
+
+  function updateRate(){
+    const val = document.getElementById("rate").value;
+    document.getElementById("rateText").innerText = val + "%";
+
+    const gift = document.getElementById("gift");
+    const giftText = document.getElementById("giftText");
+
+    if(val >= 80){
+      gift.style.display = "block";
+      giftText.innerHTML = "Selamat 🎉 kamu dapat hadiah peluk virtual 🤗💖";
+    } else {
+      gift.style.display = "none";
+      giftText.innerHTML = "";
+    }
+  }
+
+  function createHeart(){
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💖";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.animationDuration = (4 + Math.random()*3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),7000);
+  }
+  setInterval(createHeart, 400);
+</script>
 </body>
 </html>
