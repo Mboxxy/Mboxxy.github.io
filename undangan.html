@@ -1,1 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Invitation Builder</title>
 
+<style>
+:root{
+ --bg:#020617; --card:#020617; --accent:#22c55e;
+}
+body{margin:0;font-family:system-ui;background:#0f172a;color:#fff}
+.container{max-width:900px;margin:auto;padding:16px}
+.card{background:var(--card);padding:20px;border-radius:18px}
+
+h2,h3{text-align:center}
+input,textarea,select{
+ width:100%;padding:10px;border-radius:10px;border:none;margin-top:6px
+}
+.form-group{margin-bottom:12px}
+button{
+ width:100%;padding:14px;border:none;border-radius:12px;
+ background:var(--accent);font-weight:700
+}
+
+/* UNDANGAN */
+#invitation{display:none}
+.hero{
+ min-height:70vh;
+ display:flex;flex-direction:column;justify-content:center;align-items:center;
+ background:linear-gradient(180deg,#020617,#020617);
+ text-align:center;padding:30px
+}
+.section{padding:40px 20px;text-align:center}
+.countdown{font-size:20px;letter-spacing:2px}
+
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.gallery img{width:100%;border-radius:12px}
+
+.rsvp input{margin:6px 0}
+
+.fade{animation:fade 1s}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1}}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- FORM -->
+<div class="card" id="formBox">
+
+<h2>Form Undangan Pernikahan</h2>
+
+<div class="form-group"><label>Nama Pengantin Pria</label><input id="pria"></div>
+<div class="form-group"><label>Nama Pengantin Wanita</label><input id="wanita"></div>
+<div class="form-group"><label>Tanggal Pernikahan</label><input type="date" id="tanggal"></div>
+<div class="form-group"><label>Waktu Akad</label><input id="akad"></div>
+<div class="form-group"><label>Waktu Resepsi</label><input id="resepsi"></div>
+<div class="form-group"><label>Lokasi</label><input id="lokasi"></div>
+
+<div class="form-group"><label>Cerita Cinta</label><textarea id="cerita"></textarea></div>
+
+<div class="form-group"><label>Link Foto Hero (Google Drive / URL)</label><input id="heroImg"></div>
+
+<div class="form-group">
+<label>Link Galeri (3 foto)</label>
+<input id="g1" placeholder="Foto 1">
+<input id="g2" placeholder="Foto 2">
+<input id="g3" placeholder="Foto 3">
+</div>
+
+<div class="form-group"><label>Link Musik (opsional)</label><input id="musik"></div>
+
+<button onclick="build()">Buat Website Undangan</button>
+
+</div>
+
+
+<!-- WEBSITE UNDANGAN -->
+<div id="invitation" class="fade">
+
+<div class="hero" id="hero">
+<h3>Undangan Pernikahan</h3>
+<h1 id="nama"></h1>
+<p id="tgl"></p>
+</div>
+
+<div class="section">
+<h3>Akad Nikah</h3>
+<p id="akadView"></p>
+<h3>Resepsi</h3>
+<p id="resepsiView"></p>
+<p id="lokasiView"></p>
+</div>
+
+<div class="section">
+<h3>Cerita Cinta</h3>
+<p id="ceritaView"></p>
+</div>
+
+<div class="section">
+<h3>Galeri</h3>
+<div class="gallery">
+<img id="img1"><img id="img2"><img id="img3">
+</div>
+</div>
+
+<div class="section rsvp">
+<h3>RSVP</h3>
+<input placeholder="Nama">
+<input placeholder="Jumlah Tamu">
+<button>Kirim</button>
+</div>
+
+</div>
+
+</div>
+
+<script>
+function build(){
+  document.getElementById("formBox").style.display="none";
+  document.getElementById("invitation").style.display="block";
+
+  nama.textContent = wanita.value+" & "+pria.value;
+  tgl.textContent = tanggal.value;
+  akadView.textContent = "Akad: "+akad.value;
+  resepsiView.textContent = "Resepsi: "+resepsi.value;
+  lokasiView.textContent = lokasi.value;
+  ceritaView.textContent = cerita.value;
+
+  if(heroImg.value){
+    hero.style.background=`url(${heroImg.value}) center/cover`;
+  }
+
+  img1.src=g1.value; img2.src=g2.value; img3.src=g3.value;
+
+  if(musik.value){
+    const audio=document.createElement("audio");
+    audio.src=musik.value; audio.autoplay=true; audio.loop=true;
+    document.body.appendChild(audio);
+  }
+}
+</script>
+
+</body>
+</html>
