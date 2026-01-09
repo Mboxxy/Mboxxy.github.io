@@ -1,364 +1,227 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Undangan Pernikahan Andi & Theresya</title>  <!-- Google Fonts -->  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">  <!-- AOS Animation -->  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">  <style>
-    * { box-sizing: border-box; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Prompt Generator</title>
 
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top, #142850, #0b132b 70%);
-      color: #fff;
-      overflow-x: hidden;
-    }
+<style>
+:root{
+  --bg:#020617;
+  --card:#020617;
+  --accent:#22c55e;
+}
+body{
+  margin:0;
+  background:#0f172a;
+  font-family:system-ui, sans-serif;
+  color:#e5e7eb;
+}
+.container{
+  max-width:720px;
+  margin:auto;
+  padding:20px;
+}
+.card{
+  background:var(--card);
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+h2{text-align:center}
 
-    section {
-      min-height: 100vh;
-      padding: 90px 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      position: relative;
-    }
+.progress{
+  height:8px;
+  background:#020617;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:15px;
+}
+.progress span{
+  display:block;
+  height:100%;
+  width:0%;
+  background:var(--accent);
+  transition:.4s;
+}
 
-    h1, h2 {
-      font-family: 'Playfair Display', serif;
-      color: #f5d58b;
-    }
+.form-group{
+  margin-bottom:14px;
+  animation:fadeUp .5s ease;
+}
+label{display:block;margin-bottom:6px;font-weight:600}
+input,select,textarea{
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  border:none;
+}
+textarea{min-height:80px}
 
-    .gold { color: #f5d58b; }
+.checkbox-group label{display:block;margin:6px 0}
 
-    /* ===== ORNAMEN ARABIC EMAS (CSS) ===== */
-    .ornament {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
+.extra{display:none;margin-top:8px}
 
-    .sparkle {
-      position: absolute;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #ffd77a, rgba(255,215,122,0.1));
-      box-shadow: 0 0 12px rgba(255,215,122,0.9);
-      animation: floatUp 14s linear infinite;
-      opacity: .6;
-    }
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  background:var(--accent);
+  font-weight:700;
+  cursor:pointer;
+}
 
-    .arabic {
-      position: absolute;
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      border: 2px solid rgba(245,213,139,.35);
-      box-shadow: 0 0 25px rgba(245,213,139,.25) inset, 0 0 25px rgba(245,213,139,.25);
-      animation: rotateSlow 40s linear infinite;
-      opacity: .25;
-    }
+#result{
+  white-space:pre-wrap;
+  background:#020617;
+  padding:15px;
+  border-radius:12px;
+  margin-top:15px;
+  display:none;
+}
 
-    @keyframes floatUp {
-      from { transform: translateY(110vh) scale(.5); }
-      to { transform: translateY(-10vh) scale(1.1); }
-    }
+.preview{
+  display:none;
+  margin-top:20px;
+  padding:20px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#020617,#020617);
+  text-align:center;
+}
 
-    @keyframes rotateSlow {
-      from { transform: translateY(110vh) rotate(0deg); }
-      to { transform: translateY(-20vh) rotate(360deg); }
-    }
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:none}
+}
+</style>
+</head>
 
-    /* ===== COVER ===== */
-    .cover {
-      background:
-        linear-gradient(rgba(11,19,43,0.9), rgba(11,19,43,0.9)),
-        url('https://images.unsplash.com/photo-1542038784456-1ea8e935640e') center/cover no-repeat;
-    }
-
-    .cover h1 { font-size: 40px; margin-bottom: 10px; }
-
-    .btn {
-      margin-top: 25px;
-      padding: 14px 36px;
-      border-radius: 40px;
-      background: linear-gradient(135deg, #f5d58b, #d4af37);
-      color: #000;
-      text-decoration: none;
-      font-weight: 500;
-      transition: .3s;
-      box-shadow: 0 0 20px rgba(245,213,139,.6);
-      border: none;
-    }
-
-    .btn:hover { transform: scale(1.05); }
-
-    /* ===== CARD ===== */
-    .card {
-      background: rgba(255,255,255,0.06);
-      padding: 35px 25px;
-      border-radius: 24px;
-      backdrop-filter: blur(8px);
-      max-width: 560px;
-      border: 1px solid rgba(245,213,139,0.25);
-      box-shadow: 0 0 30px rgba(0,0,0,0.4);
-    }
-
-    /* ===== PHOTO ===== */
-    .photo {
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 5px solid #f5d58b;
-      margin-bottom: 20px;
-      box-shadow: 0 0 25px rgba(245,213,139,0.6);
-    }
-
-    /* ===== GALLERY ===== */
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .gallery img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 14px;
-      border: 2px solid rgba(245,213,139,.4);
-    }
-
-    iframe {
-      border-radius: 18px;
-      width: 100%;
-      height: 260px;
-      border: none;
-    }
-
-    footer {
-      padding: 35px 20px;
-      text-align: center;
-      font-size: 14px;
-      background: rgba(0,0,0,0.35);
-      color: #ccc;
-    }
-
-    input, textarea { outline: none; }
-  </style></head>
 <body>
+
+<div class="container">
+<div class="card">
+
+<h2>Wedding Website Prompt Generator</h2>
+
+<div class="progress"><span id="bar"></span></div>
+
+<form id="form">
+
+<div class="form-group"><label>Nama Pengantin Pria</label><input required></div>
+<div class="form-group"><label>Nama Pengantin Wanita</label><input required></div>
+<div class="form-group"><label>Tanggal Pernikahan</label><input type="date"></div>
+<div class="form-group"><label>Waktu Akad</label><input></div>
+<div class="form-group"><label>Waktu Resepsi</label><input></div>
+<div class="form-group"><label>Lokasi Akad</label><input></div>
+<div class="form-group"><label>Lokasi Resepsi</label><input></div>
+
+<div class="form-group">
+<label>Tema Warna</label>
+<select>
+<option>Hijau Sage</option><option>Dusty Blue</option><option>Sampanye / Emas</option>
+<option>Hitam Putih</option><option>Lavender</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Gaya Website</label>
+<select>
+<option>Minimalis Elegan</option><option>Tradisional</option><option>Bohemian</option>
+<option>Modern Glamor</option><option>Botani</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Elemen Website</label>
+<div class="checkbox-group">
+
+<label><input type="checkbox" onchange="toggle(this,'hero')"> Hero Image</label>
+<div id="hero" class="extra"><input placeholder="Link Foto Hero"></div>
+
+<label><input type="checkbox"> Countdown</label>
+<label><input type="checkbox"> RSVP</label>
+
+<label><input type="checkbox" onchange="toggle(this,'galeri')"> Galeri</label>
+<div id="galeri" class="extra">
+<input placeholder="Foto 1"><input placeholder="Foto 2"><input placeholder="Foto 3">
+</div>
+
+<label><input type="checkbox" onchange="toggle(this,'musik')"> Musik</label>
+<div id="musik" class="extra"><input placeholder="Link Musik"></div>
+
+<label><input type="checkbox" onchange="toggle(this,'kado')"> Kado</label>
+<div id="kado" class="extra"><input placeholder="No Rekening"></div>
+
+<label><input type="checkbox"> Ucapan</label>
+
+</div>
+</div>
+
+<div class="form-group"><label>Cerita Cinta</label><textarea></textarea></div>
+<div class="form-group"><label>Kata Pembuka Ucapan</label><textarea></textarea></div>
+
+<button type="button" onclick="generate()">Generate Prompt</button>
+
+</form>
+
+<div id="result"></div>
+
+<button style="margin-top:10px;display:none" id="copyBtn" onclick="copy()">Copy Prompt</button>
+<button style="margin-top:10px;display:none" id="previewBtn" onclick="preview()">Preview Website</button>
+
+<div class="preview" id="previewBox"></div>
+
+</div>
+</div>
+
 <script>
-// ===== PERSONAL INVITATION NAME FROM LINK =====
-const urlParams = new URLSearchParams(window.location.search);
-const guestName = urlParams.get('to');
-window.addEventListener('DOMContentLoaded',()=>{
-  if(guestName){
-    const el = document.getElementById('guestName');
-    if(el){ el.innerText = guestName.replace(/\+/g,' '); }
-  }
-});
-</script>  <!-- MUSIK ISLAMI -->  <audio id="bgMusic" autoplay loop>
-    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_9e8c0c8c52.mp3" type="audio/mpeg">
-  </audio>  <!-- OPENING -->  <section class="cover" id="opening">
-    <div class="ornament">
-      <div class="sparkle" style="left:10%"></div>
-      <div class="sparkle" style="left:40%; animation-delay:3s"></div>
-      <div class="sparkle" style="left:70%; animation-delay:6s"></div>
-      <div class="arabic" style="left:15%"></div>
-      <div class="arabic" style="left:65%; animation-delay:10s"></div>
-    </div><div data-aos="fade-up">
-  <h2 class="gold">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</h2>
-  <p>Dengan memohon rahmat dan ridho Allah SWT,
-  kami bermaksud menyelenggarakan pernikahan putra-putri kami.</p>
-  <h1>Andi Kusuma &<br>Theresya Medina Ali</h1>
-  <p class="gold">QS. Ar-Rum : 21</p>
-  <p>"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri supaya kamu merasa tenteram kepadanya dan dijadikan-Nya di antaramu rasa kasih dan sayang."</p>
-  <a href="#pasangan" class="btn">Buka Undangan</a>
-</div>
+const inputs=document.querySelectorAll("input,select,textarea");
+inputs.forEach(i=>i.addEventListener("input",updateBar));
 
-  </section>  <!-- PASANGAN -->  <section id="pasangan">
-    <div class="ornament">
-      <div class="sparkle" style="left:15%"></div>
-      <div class="sparkle" style="left:80%; animation-delay:4s"></div>
-      <div class="arabic" style="left:50%; animation-delay:12s"></div>
-    </div><div class="card" data-aos="zoom-in">
-  <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e" class="photo">
-  <h2>Andi Kusuma</h2>
-  <p>Putra dari Bapak Mukapsin<br>dan Ibu Sholehati</p>
-  <br>
-  <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1" class="photo">
-  <h2>Theresya Medina Ali</h2>
-  <p>Putri dari Bapak Matroji Tawilah<br>dan Ibu Hafidah</p>
-</div>
+function updateBar(){
+  let filled=0;
+  inputs.forEach(i=>{ if(i.value) filled++; });
+  document.getElementById("bar").style.width=(filled/inputs.length*100)+"%";
+}
 
-  </section>  <!-- AKAD -->  <section>
-    <div class="ornament">
-      <div class="sparkle" style="left:25%"></div>
-      <div class="sparkle" style="left:65%; animation-delay:5s"></div>
-      <div class="arabic" style="left:40%; animation-delay:8s"></div>
-    </div><div class="card" data-aos="fade-up">
-  <h2>Akad Nikah</h2>
-  <p><b>Hari / Tanggal:</b><br>30 Maret</p>
-  <p><b>Waktu:</b><br>08.00 WIB</p>
-  <p><b>Lokasi:</b><br>Sebelah Selatan Brok Pasongsongan</p>
-</div>
+function toggle(cb,id){
+  document.getElementById(id).style.display=cb.checked?"block":"none";
+}
 
-  </section>  <!-- RESEPSI -->  <section>
-    <div class="ornament">
-      <div class="sparkle" style="left:30%"></div>
-      <div class="sparkle" style="left:75%; animation-delay:3s"></div>
-      <div class="arabic" style="left:55%; animation-delay:10s"></div>
-    </div><div class="card" data-aos="fade-up">
-  <h2>Resepsi</h2>
-  <p><b>Hari / Tanggal:</b><br>31 Maret</p>
-  <p><b>Waktu:</b><br>01.00 WIB</p>
-  <p><b>Lokasi:</b><br>Sebelah Barat Pantai Slopeng</p>
-</div>
+let finalPrompt="";
 
-  </section>  <!-- COUNTDOWN -->  <section>
-    <div class="ornament">
-      <div class="sparkle" style="left:30%"></div>
-      <div class="sparkle" style="left:75%; animation-delay:3s"></div>
-    </div><div class="card" data-aos="zoom-in">
-  <h2>Menuju Hari Bahagia</h2>
-  <div id="countdown" style="font-size:20px; letter-spacing:2px; color:#f5d58b;"></div>
-</div>
+function generate(){
+  const data=[...inputs].map(i=>i.value);
+  finalPrompt=`Saya ingin kamu bertindak sebagai frontend developer profesional untuk membuat website undangan pernikahan digital modern, elegan, mobile-first, dengan animasi scroll halus, parallax ringan, dan transisi lembut.
 
-  </section>  <!-- GALERI FOTO (10 FOTO - GANTI NANTI) -->  <section>
-    <div class="ornament">
-      <div class="sparkle" style="left:20%"></div>
-      <div class="sparkle" style="left:60%; animation-delay:4s"></div>
-    </div><div class="card" data-aos="fade-up">
-  <h2>Galeri Foto</h2>
-  <div class="gallery">
-    <img src="https://picsum.photos/300/300?1">
-    <img src="https://picsum.photos/300/300?2">
-    <img src="https://picsum.photos/300/300?3">
-    <img src="https://picsum.photos/300/300?4">
-    <img src="https://picsum.photos/300/300?5">
-    <img src="https://picsum.photos/300/300?6">
-    <img src="https://picsum.photos/300/300?7">
-    <img src="https://picsum.photos/300/300?8">
-    <img src="https://picsum.photos/300/300?9">
-    <img src="https://picsum.photos/300/300?10">
-  </div>
-  <p style="font-size:13px;opacity:.7">(Foto bisa diganti nanti)</p>
-</div>
+Data:
+${data.join("\n")}
+Gunakan desain sesuai tema dan gaya yang dipilih, serta tampilkan elemen website sesuai checklist user.`;
 
-  </section>  <!-- JOURNEY OF LOVE -->  <section>
-    <div class="card" data-aos="fade-up">
-      <h2>Journey of Love</h2>
-      <p><b>Pertemuan</b><br>Kami dipertemukan oleh takdir Allah pada waktu yang tak terduga, dan dari sanalah tumbuh rasa yang penuh doa.</p>
-      <p><b>Komitmen</b><br>Dengan niat yang baik, kami saling menguatkan untuk melangkah menuju masa depan yang diridhai-Nya.</p>
-      <p><b>Ikatan Suci</b><br>Kami memilih untuk menyempurnakan separuh agama dalam ikatan pernikahan yang penuh berkah.</p>
-    </div>
-  </section>  <!-- RSVP -->  <section>
-    <div class="card" data-aos="zoom-in">
-      <h2>Konfirmasi Kehadiran (RSVP)</h2>
-      <form id="rsvpForm">
-        <input type="text" id="rsvpName" placeholder="Nama" required style="width:100%;padding:10px;border-radius:10px;border:none;margin-bottom:10px;">
-        <select id="attendance" required style="width:100%;padding:10px;border-radius:10px;border:none;margin-bottom:10px;">
-          <option value="">Pilih Kehadiran</option>
-          <option value="Hadir">Hadir</option>
-          <option value="Tidak Hadir">Tidak Hadir</option>
-        </select>
-        <button type="submit" class="btn">Kirim Konfirmasi</button>
-      </form>
-      <div id="rsvpResult" style="margin-top:15px;"></div>
-    </div>
-  </section>  <!-- UCAPAN TAMU -->  <section>
-    <div class="ornament">
-      <div class="sparkle" style="left:20%"></div>
-      <div class="sparkle" style="left:60%; animation-delay:4s"></div>
-    </div><div class="card" data-aos="fade-up">
-  <h2>Kirim Ucapan & Doa</h2>
-  <form id="wishForm">
-    <input type="text" id="name" placeholder="Nama" required style="width:100%;padding:10px;border-radius:10px;border:none;margin-bottom:10px;">
-    <textarea id="message" placeholder="Tulis doa & ucapan" required style="width:100%;padding:10px;border-radius:10px;border:none;height:80px;"></textarea>
-    <br><br>
-    <button type="submit" class="btn">Kirim Ucapan</button>
-  </form>
-  <div id="wishes" style="margin-top:20px;text-align:left;max-height:200px;overflow:auto;"></div>
-</div>
+  const res=document.getElementById("result");
+  res.style.display="block";
+  res.textContent=finalPrompt;
 
-  </section>  <!-- MAP (PALING BAWAH) -->  <section>
-    <div class="ornament">
-      <div class="sparkle" style="left:35%"></div>
-      <div class="sparkle" style="left:80%; animation-delay:6s"></div>
-      <div class="arabic" style="left:55%; animation-delay:12s"></div>
-    </div><h2 data-aos="fade-up">Lokasi Acara</h2>
-<div class="card" data-aos="zoom-in">
-  <iframe src="https://www.google.com/maps?q=Sebelah%20Selatan%20Brok%20Pasongsongan&output=embed"></iframe>
-  <br><br>
-  <iframe src="https://www.google.com/maps?q=Sebelah%20Barat%20Pantai%20Slopeng&output=embed"></iframe>
-  <br>
-  <a class="btn" href="https://maps.google.com" target="_blank">Buka di Google Maps</a>
-</div>
+  copyBtn.style.display="block";
+  previewBtn.style.display="block";
+}
 
-  </section>  <footer>
-    © 2026 Undangan Pernikahan Andi & Theresya
-  </footer>  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>  <script>
-    // ===== ANIMATION INIT =====
-    AOS.init({ duration: 1300, once: true });
+function copy(){
+  navigator.clipboard.writeText(finalPrompt);
+  alert("Prompt berhasil dicopy!");
+}
 
-    // ===== COUNTDOWN TIMER (MENUJU AKAD) =====
-    const weddingDate = new Date("March 30, 2026 08:00:00").getTime();
-    const countdownEl = document.getElementById("countdown");
+function preview(){
+  previewBox.style.display="block";
+  previewBox.innerHTML=`
+<h3>${inputs[1].value} & ${inputs[0].value}</h3>
+<p>${inputs[2].value}</p>
+<p>${inputs[5].value}</p>
+<button style="padding:10px;border-radius:10px;border:none;background:#22c55e">RSVP</button>
+`;
+}
+</script>
 
-    setInterval(() => {
-      const now = new Date().getTime();
-      const distance = weddingDate - now;
-
-      if (distance < 0) {
-        countdownEl.innerHTML = "Hari Bahagia Telah Tiba 💛";
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      countdownEl.innerHTML = `${days} Hari : ${hours} Jam : ${minutes} Menit : ${seconds} Detik`;
-    }, 1000);
-
-    // ===== WISH FORM (LOCAL) =====
-    // ===== RSVP FORM (LOCAL ONLY) =====
-    const rsvpForm = document.getElementById("rsvpForm");
-    const rsvpResult = document.getElementById("rsvpResult");
-
-    if(rsvpForm){
-      rsvpForm.addEventListener("submit", function(e){
-        e.preventDefault();
-        const name = document.getElementById("rsvpName").value;
-        const att = document.getElementById("attendance").value;
-        rsvpResult.innerHTML = `Terima kasih <b>${name}</b>, konfirmasi kamu: <b>${att}</b> 🤍`;
-        rsvpForm.reset();
-      });
-    }
-
-    // ===== WISH FORM (LOCAL ONLY) =====
-    const form = document.getElementById("wishForm");
-    const wishes = document.getElementById("wishes");
-
-    form.addEventListener("submit", function(e){
-      e.preventDefault();
-      const name = document.getElementById("name").value;
-      const message = document.getElementById("message").value;
-
-      const div = document.createElement("div");
-      div.style.borderBottom = "1px solid rgba(255,255,255,0.2)";
-      div.style.marginBottom = "10px";
-      div.innerHTML = `<b>${name}</b><br><span style='font-size:14px'>${message}</span>`;
-      wishes.prepend(div);
-
-      form.reset();
-    });
-  </script></body>
+</body>
 </html>
