@@ -4,223 +4,272 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wedding Prompt Generator</title>
+<title>Undangan Pernikahan</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#020617;
-  --card:#020617;
-  --accent:#22c55e;
+ --accent:#d4af37;
+ --bg:#020617;
 }
+
+*{box-sizing:border-box}
 body{
-  margin:0;
-  background:#0f172a;
-  font-family:system-ui, sans-serif;
-  color:#e5e7eb;
+ margin:0;
+ background:#0f172a;
+ color:#fff;
+ font-family:Poppins,sans-serif;
+ scroll-behavior:smooth;
 }
-.container{
-  max-width:720px;
-  margin:auto;
-  padding:20px;
+
+section{padding:70px 18px;text-align:center}
+h1,h2{font-family:Playfair Display;color:var(--accent)}
+
+.fade{opacity:0;transform:translateY(25px);transition:1s}
+.fade.show{opacity:1;transform:none}
+
+/* OPENING */
+#opening{
+ position:fixed;inset:0;
+ background:
+  linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.9)),
+  url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e') center/cover;
+ display:flex;flex-direction:column;justify-content:center;align-items:center;
+ z-index:99;text-align:center;
 }
+#opening button{
+ background:var(--accent);border:none;padding:14px 30px;
+ border-radius:30px;font-weight:600;
+}
+
+/* HERO */
+.hero{
+ min-height:100vh;
+ background:
+  linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.85)),
+  url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee') center/cover;
+ display:flex;flex-direction:column;justify-content:center;align-items:center;
+ text-align:center;
+}
+
+/* COUNTDOWN */
+.countdown{display:flex;justify-content:center;gap:10px}
+.time{background:#0008;padding:10px;border-radius:12px;min-width:60px}
+
+/* CARD */
 .card{
-  background:var(--card);
-  padding:20px;
-  border-radius:16px;
-  box-shadow:0 10px 30px rgba(0,0,0,.4);
-}
-h2{text-align:center}
-
-.progress{
-  height:8px;
-  background:#020617;
-  border-radius:10px;
-  overflow:hidden;
-  margin-bottom:15px;
-}
-.progress span{
-  display:block;
-  height:100%;
-  width:0%;
-  background:var(--accent);
-  transition:.4s;
+ background:var(--bg);
+ border-radius:20px;
+ padding:22px;
+ max-width:700px;
+ margin:auto;
 }
 
-.form-group{
-  margin-bottom:14px;
-  animation:fadeUp .5s ease;
-}
-label{display:block;margin-bottom:6px;font-weight:600}
-input,select,textarea{
-  width:100%;
-  padding:10px;
-  border-radius:10px;
-  border:none;
-}
-textarea{min-height:80px}
-
-.checkbox-group label{display:block;margin:6px 0}
-
-.extra{display:none;margin-top:8px}
-
-button{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:12px;
-  background:var(--accent);
-  font-weight:700;
-  cursor:pointer;
+/* GALLERY */
+.slider{display:flex;overflow-x:auto;gap:10px;scroll-snap-type:x mandatory}
+.slider img{
+ width:80%;border-radius:16px;scroll-snap-align:center;
 }
 
-#result{
-  white-space:pre-wrap;
-  background:#020617;
-  padding:15px;
-  border-radius:12px;
-  margin-top:15px;
-  display:none;
+/* FORM */
+input,textarea{
+ width:100%;padding:10px;border-radius:10px;border:none;margin:6px 0;
 }
 
-.preview{
-  display:none;
-  margin-top:20px;
-  padding:20px;
-  border-radius:16px;
-  background:linear-gradient(135deg,#020617,#020617);
-  text-align:center;
+/* NAV */
+.nav{
+ position:fixed;bottom:0;left:0;right:0;
+ background:#020617;
+ display:flex;justify-content:space-around;
+ padding:10px 0;
+}
+.nav a{color:#aaa;text-decoration:none;font-size:14px}
+.nav a:hover{color:var(--accent)}
+
+#musicBtn{
+ position:fixed;bottom:80px;right:16px;
+ background:var(--accent);border:none;border-radius:50%;
+ width:48px;height:48px;font-size:18px;
 }
 
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:none}
+.share{
+ position:fixed;bottom:80px;left:16px;
+ background:#25D366;color:#fff;border:none;border-radius:30px;
+ padding:10px 16px;font-weight:600;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- DATA PENGANTIN (EDIT DI SINI) -->
+<script>
+const data={
+ pria:"Andi Kusuma Putra",
+ wanita:"Theresya Medina Ali",
+ tanggal:"31 Maret 2026",
+ akad:"08:00 WIB",
+ resepsi:"13:00 WIB",
+ lokasi:"Pasongsongan, Slopeng Beluk Raja",
+ maps:"Pasongsongan Slopeng Beluk Raja",
+ cerita:"Pertemuan sederhana yang berubah menjadi perjalanan penuh cinta hingga akhirnya kami memutuskan untuk bersama.",
+ galeri:[
+  "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
+  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+  "https://images.unsplash.com/photo-1524504388940-b1c1722653e1"
+ ],
+ musik:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+}
+</script>
+
+<!-- OPENING -->
+<div id="opening">
+<h1 id="openName"></h1>
+<p>Kepada Yth.<br>Tamu Undangan</p>
+<button onclick="openInvite()">Buka Undangan</button>
+</div>
+
+<!-- HERO -->
+<section class="hero fade" id="home">
+<h1 id="heroName"></h1>
+<p id="heroDate"></p>
+
+<div class="countdown">
+<div class="time"><span id="d">0</span><br>Hari</div>
+<div class="time"><span id="h">0</span><br>Jam</div>
+<div class="time"><span id="m">0</span><br>Menit</div>
+<div class="time"><span id="s">0</span><br>Detik</div>
+</div>
+</section>
+
+<!-- ACARA -->
+<section class="fade" id="acara">
 <div class="card">
+<h2>Detail Acara</h2>
+<p id="akadView"></p>
+<p id="resepsiView"></p>
+<p id="lokasiView"></p>
+</div>
+</section>
 
-<h2>Wedding Website Prompt Generator</h2>
+<!-- CERITA -->
+<section class="fade">
+<div class="card">
+<h2>Cerita Kami</h2>
+<p id="ceritaView"></p>
+</div>
+</section>
 
-<div class="progress"><span id="bar"></span></div>
+<!-- GALERI -->
+<section class="fade" id="galeri">
+<h2>Galeri</h2>
+<div class="slider" id="galeriBox"></div>
+</section>
 
-<form id="form">
+<!-- MAPS -->
+<section class="fade" id="lokasi">
+<h2>Lokasi</h2>
+<iframe id="mapsFrame" width="100%" height="300" style="border-radius:18px;border:0"></iframe>
+</section>
 
-<div class="form-group"><label>Nama Pengantin Pria</label><input required></div>
-<div class="form-group"><label>Nama Pengantin Wanita</label><input required></div>
-<div class="form-group"><label>Tanggal Pernikahan</label><input type="date"></div>
-<div class="form-group"><label>Waktu Akad</label><input></div>
-<div class="form-group"><label>Waktu Resepsi</label><input></div>
-<div class="form-group"><label>Lokasi Akad</label><input></div>
-<div class="form-group"><label>Lokasi Resepsi</label><input></div>
+<!-- UCAPAN -->
+<section class="fade" id="ucapan">
+<div class="card">
+<h2>Ucapan Tamu</h2>
+<input id="uNama" placeholder="Nama">
+<textarea id="uPesan" placeholder="Ucapan"></textarea>
+<button onclick="kirimUcapan()">Kirim</button>
+<div id="listUcapan"></div>
+</div>
+</section>
 
-<div class="form-group">
-<label>Tema Warna</label>
-<select>
-<option>Hijau Sage</option><option>Dusty Blue</option><option>Sampanye / Emas</option>
-<option>Hitam Putih</option><option>Lavender</option>
-</select>
+<footer style="padding:40px;text-align:center;color:#aaa">
+Terima kasih atas doa dan kehadirannya 🤍
+</footer>
+
+<!-- NAV -->
+<div class="nav">
+<a href="#home">Home</a>
+<a href="#acara">Acara</a>
+<a href="#galeri">Galeri</a>
+<a href="#ucapan">Ucapan</a>
+<a href="#lokasi">Lokasi</a>
 </div>
 
-<div class="form-group">
-<label>Gaya Website</label>
-<select>
-<option>Minimalis Elegan</option><option>Tradisional</option><option>Bohemian</option>
-<option>Modern Glamor</option><option>Botani</option>
-</select>
-</div>
+<button id="musicBtn" onclick="toggleMusic()">🎵</button>
+<button class="share" onclick="shareWA()">Share</button>
 
-<div class="form-group">
-<label>Elemen Website</label>
-<div class="checkbox-group">
-
-<label><input type="checkbox" onchange="toggle(this,'hero')"> Hero Image</label>
-<div id="hero" class="extra"><input placeholder="Link Foto Hero"></div>
-
-<label><input type="checkbox"> Countdown</label>
-<label><input type="checkbox"> RSVP</label>
-
-<label><input type="checkbox" onchange="toggle(this,'galeri')"> Galeri</label>
-<div id="galeri" class="extra">
-<input placeholder="Foto 1"><input placeholder="Foto 2"><input placeholder="Foto 3">
-</div>
-
-<label><input type="checkbox" onchange="toggle(this,'musik')"> Musik</label>
-<div id="musik" class="extra"><input placeholder="Link Musik"></div>
-
-<label><input type="checkbox" onchange="toggle(this,'kado')"> Kado</label>
-<div id="kado" class="extra"><input placeholder="No Rekening"></div>
-
-<label><input type="checkbox"> Ucapan</label>
-
-</div>
-</div>
-
-<div class="form-group"><label>Cerita Cinta</label><textarea></textarea></div>
-<div class="form-group"><label>Kata Pembuka Ucapan</label><textarea></textarea></div>
-
-<button type="button" onclick="generate()">Generate Prompt</button>
-
-</form>
-
-<div id="result"></div>
-
-<button style="margin-top:10px;display:none" id="copyBtn" onclick="copy()">Copy Prompt</button>
-<button style="margin-top:10px;display:none" id="previewBtn" onclick="preview()">Preview Website</button>
-
-<div class="preview" id="previewBox"></div>
-
-</div>
-</div>
+<audio id="audio" loop></audio>
 
 <script>
-const inputs=document.querySelectorAll("input,select,textarea");
-inputs.forEach(i=>i.addEventListener("input",updateBar));
+openName.textContent=data.wanita+" & "+data.pria;
+heroName.textContent=data.wanita+" & "+data.pria;
+heroDate.textContent=data.tanggal;
+akadView.textContent="Akad: "+data.akad;
+resepsiView.textContent="Resepsi: "+data.resepsi;
+lokasiView.textContent=data.lokasi;
+ceritaView.textContent=data.cerita;
 
-function updateBar(){
-  let filled=0;
-  inputs.forEach(i=>{ if(i.value) filled++; });
-  document.getElementById("bar").style.width=(filled/inputs.length*100)+"%";
+mapsFrame.src="https://www.google.com/maps?q="+encodeURIComponent(data.maps)+"&output=embed";
+
+data.galeri.forEach(img=>{
+ const i=document.createElement("img");
+ i.src=img; galeriBox.appendChild(i);
+});
+
+audio.src=data.musik;
+
+function openInvite(){
+ opening.style.display="none";
+ audio.play();
+ startCountdown();
+ observe();
 }
 
-function toggle(cb,id){
-  document.getElementById(id).style.display=cb.checked?"block":"none";
+function startCountdown(){
+ const target=new Date("2026-03-31T08:00:00").getTime();
+ setInterval(()=>{
+  const now=new Date().getTime();
+  const diff=target-now;
+  d.textContent=Math.max(0,Math.floor(diff/(1000*60*60*24)));
+  h.textContent=Math.max(0,Math.floor((diff%(1000*60*60*24))/(1000*60*60)));
+  m.textContent=Math.max(0,Math.floor((diff%(1000*60*60))/(1000*60)));
+  s.textContent=Math.max(0,Math.floor((diff%(1000*60))/1000));
+ },1000);
 }
 
-let finalPrompt="";
-
-function generate(){
-  const data=[...inputs].map(i=>i.value);
-  finalPrompt=`Saya ingin kamu bertindak sebagai frontend developer profesional untuk membuat website undangan pernikahan digital modern, elegan, mobile-first, dengan animasi scroll halus, parallax ringan, dan transisi lembut.
-
-Data:
-${data.join("\n")}
-Gunakan desain sesuai tema dan gaya yang dipilih, serta tampilkan elemen website sesuai checklist user.`;
-
-  const res=document.getElementById("result");
-  res.style.display="block";
-  res.textContent=finalPrompt;
-
-  copyBtn.style.display="block";
-  previewBtn.style.display="block";
+function observe(){
+ const f=document.querySelectorAll(".fade");
+ const io=new IntersectionObserver(e=>{
+  e.forEach(x=>{if(x.isIntersecting)x.target.classList.add("show")});
+ });
+ f.forEach(el=>io.observe(el));
 }
 
-function copy(){
-  navigator.clipboard.writeText(finalPrompt);
-  alert("Prompt berhasil dicopy!");
+let playing=true;
+function toggleMusic(){
+ if(playing){audio.pause();musicBtn.textContent="🔇";}
+ else{audio.play();musicBtn.textContent="🎵";}
+ playing=!playing;
 }
 
-function preview(){
-  previewBox.style.display="block";
-  previewBox.innerHTML=`
-<h3>${inputs[1].value} & ${inputs[0].value}</h3>
-<p>${inputs[2].value}</p>
-<p>${inputs[5].value}</p>
-<button style="padding:10px;border-radius:10px;border:none;background:#22c55e">RSVP</button>
-`;
+function kirimUcapan(){
+ if(!uNama.value||!uPesan.value)return;
+ const div=document.createElement("div");
+ div.style.background="#020617";
+ div.style.padding="10px";
+ div.style.borderRadius="10px";
+ div.style.marginTop="6px";
+ div.innerHTML="<b>"+uNama.value+"</b><br>"+uPesan.value;
+ listUcapan.prepend(div);
+ uNama.value="";uPesan.value="";
+}
+
+function shareWA(){
+ const text=`Undangan Pernikahan\n${data.wanita} & ${data.pria}\n${data.tanggal}\n${location.href}`;
+ window.open("https://wa.me/?text="+encodeURIComponent(text));
 }
 </script>
 
