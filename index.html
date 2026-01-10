@@ -110,7 +110,7 @@ button:hover{transform:scale(1.1)}
 </div>
 
 <!-- EEK -->
-<div id="poopScreen" class="hidden">💩</div>
+<div id="poopScreen" style="display:none">💩</div>
 
 <script>
 function keStep2(){
@@ -139,7 +139,7 @@ function buatBunga(){
 
 /* ===== BIASA AJA ===== */
 function biasaAja(){
-    document.getElementById("poopScreen").classList.remove("hidden");
+    document.getElementById("poopScreen").style.display = "flex";
     playFart();
 }
 
