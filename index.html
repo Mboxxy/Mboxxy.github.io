@@ -6,13 +6,15 @@
 <title>Ucapan Pengantin Baru</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Segoe UI,sans-serif}
+
+.hidden{display:none}
 
 body{
     min-height:100vh;
     background:
       linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
-      url("bg.jpg"); /* GANTI DENGAN NAMA FOTO KAMU */
+      url("bg.jpg"); /* FOTO KAMU DI SINI */
     background-size:cover;
     background-position:center;
     display:flex;
@@ -22,9 +24,9 @@ body{
 }
 
 .card{
-    background:rgba(255,255,255,0.92);
+    background:rgba(255,255,255,0.93);
     padding:25px;
-    border-radius:20px;
+    border-radius:22px;
     text-align:center;
     width:90%;
     max-width:420px;
@@ -37,10 +39,9 @@ body{
     to{transform:scale(1);opacity:1}
 }
 
-h1{color:#e91e63;margin-bottom:8px}
+h1{color:#e91e63;margin-bottom:10px}
 p{margin:10px 0;font-size:16px}
-
-.couple{font-size:80px;margin:8px 0}
+.couple{font-size:80px;margin:10px 0}
 
 button{
     border:none;
@@ -51,24 +52,20 @@ button{
     cursor:pointer;
     transition:.2s;
 }
-
 button:hover{transform:scale(1.1)}
 
 .btn-main{background:#ff4081;color:white}
 .btn-like{background:#4caf50;color:white}
 .btn-biasa{background:#ff9800;color:white}
 
-.hidden{display:none}
-
 /* ===== bunga jatuh ===== */
 .flower{
     position:fixed;
-    top:-50px;
+    top:-40px;
     font-size:28px;
     animation: fall linear forwards;
     pointer-events:none;
 }
-
 @keyframes fall{
     to{
         transform:translateY(110vh) rotate(360deg);
@@ -97,7 +94,7 @@ button:hover{transform:scale(1.1)}
     <h1>🎉 Selamat Menikah 🎉</h1>
     <div class="couple">👰‍♀️🤵‍♂️</div>
     <p>Semoga menjadi keluarga yang sakinah, mawaddah, warahmah 💖</p>
-    <p>Bahagia selalu sampai kakek nenek 👴👵</p>
+    <p>Bahagia sampai kakek nenek 👴👵</p>
 
     <p><b>APAKAH ANDA SUKA DENGAN INI?</b></p>
     <button class="btn-main" onclick="keStep2()">IYA, SILAKAN TEKAN</button>
@@ -124,8 +121,8 @@ function keStep2(){
 /* ===== SUKA BANGET ===== */
 function sukaBanget(){
     playTrumpet();
-    for(let i=0;i<120;i++){
-        setTimeout(buatBunga, i*60);
+    for(let i=0;i<150;i++){
+        setTimeout(buatBunga, i*50);
     }
 }
 
@@ -137,7 +134,7 @@ function buatBunga(){
     bunga.style.left = Math.random()*100 + "vw";
     bunga.style.animationDuration = (3 + Math.random()*3) + "s";
     document.body.appendChild(bunga);
-    setTimeout(()=>bunga.remove(),7000);
+    setTimeout(()=>bunga.remove(),8000);
 }
 
 /* ===== BIASA AJA ===== */
@@ -148,7 +145,7 @@ function biasaAja(){
 
 /* ===== SOUND ===== */
 
-/* trompet */
+/* trompet meriah */
 function playTrumpet(){
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const o = ctx.createOscillator();
@@ -156,17 +153,17 @@ function playTrumpet(){
 
     o.type="sawtooth";
     o.frequency.setValueAtTime(440, ctx.currentTime);
-    o.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.4);
+    o.frequency.exponentialRampToValueAtTime(1000, ctx.currentTime + 0.4);
 
     g.gain.setValueAtTime(0.0001, ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.7, ctx.currentTime + 0.05);
-    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.7);
+    g.gain.exponentialRampToValueAtTime(0.8, ctx.currentTime + 0.05);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
 
     o.connect(g); g.connect(ctx.destination);
-    o.start(); o.stop(ctx.currentTime + 0.8);
+    o.start(); o.stop(ctx.currentTime + 0.9);
 }
 
-/* kentut */
+/* suara kentut */
 function playFart(){
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const bufferSize = ctx.sampleRate * 0.7;
